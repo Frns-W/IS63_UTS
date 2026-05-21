@@ -6,7 +6,7 @@
 
 @foreach($categories as $category)
     <div class="mb-5">
-        <h5 class="m-0 font-weight-bold text-primary border-bottom pb-2 mb-3">📁 Kategori: {{ $category->name }}</h5>
+        <h5 class="m-0 font-weight-bold text-primary border-bottom pb-2 mb-3"> Kategori: {{ $category->name }}</h5>
         <div class="row">
             @foreach($category->menus as $menu)
                 <div class="col-lg-4 mb-4">
