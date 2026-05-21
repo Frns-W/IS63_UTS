@@ -37,6 +37,78 @@ class CafeController extends Controller
     }
 
     /**
+     * Halaman membuat menu baru
+     */
+    public function createMenu()
+    {
+        $categories = Category::all();
+
+        return view('cafe.menu-create', compact('categories'));
+    }
+
+    /**
+     * Simpan menu baru ke database
+     */
+    public function storeMenu(Request $request)
+    {
+        $data = $request->validate([
+            'category_id' => ['required', 'exists:categories,id'],
+            'menu_name' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'integer', 'min:0'],
+            'status' => ['required', 'in:Ready,Sold Out'],
+        ]);
+
+        Menu::create($data);
+
+        return redirect()->route('menu.index')->with('success', 'Menu baru berhasil ditambahkan.');
+    }
+
+    /**
+     * Halaman detail menu
+     */
+    public function showMenu(Menu $menu)
+    {
+        return view('cafe.menu-show', compact('menu'));
+    }
+
+    /**
+     * Halaman edit menu
+     */
+    public function editMenu(Menu $menu)
+    {
+        $categories = Category::all();
+
+        return view('cafe.menu-edit', compact('menu', 'categories'));
+    }
+
+    /**
+     * Update menu yang sudah ada
+     */
+    public function updateMenu(Request $request, Menu $menu)
+    {
+        $data = $request->validate([
+            'category_id' => ['required', 'exists:categories,id'],
+            'menu_name' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'integer', 'min:0'],
+            'status' => ['required', 'in:Ready,Sold Out'],
+        ]);
+
+        $menu->update($data);
+
+        return redirect()->route('menu.index')->with('success', 'Menu berhasil diperbarui.');
+    }
+
+    /**
+     * Hapus menu
+     */
+    public function destroyMenu(Menu $menu)
+    {
+        $menu->delete();
+
+        return redirect()->route('menu.index')->with('success', 'Menu berhasil dihapus.');
+    }
+
+    /**
      * Halaman Transaksi: Menampilkan riwayat semua orderan masuk
      */
     public function orderHistory()

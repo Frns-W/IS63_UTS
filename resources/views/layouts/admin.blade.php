@@ -43,7 +43,7 @@
             <div class="sidebar-heading">Manajemen Data</div>
 
             <!-- Nav Item - Menu -->
-            <li class="nav-item {{ Request::is('menu') ? 'active' : '' }}">
+            <li class="nav-item {{ Request::is('menu*') ? 'active' : '' }}">
                 <a class="nav-link" href="/menu">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Daftar Menu</span></a>
