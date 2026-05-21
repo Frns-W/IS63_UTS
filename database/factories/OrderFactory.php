@@ -16,8 +16,7 @@ class OrderFactory extends Factory
      *
      * @return array<string, mixed>
      */
-
-
+    
 public function definition(): array
 {
     $menu = Menu::inRandomOrder()->first() ?? Menu::factory()->create();

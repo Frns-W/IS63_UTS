@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<Category>
  */
+
 class CategoryFactory extends Factory
 {
     /**
