@@ -49,6 +49,13 @@
                     <span>Daftar Menu</span></a>
             </li>
 
+            <!-- Nav Item - Kategori -->
+            <li class="nav-item {{ Request::is('categories*') ? 'active' : '' }}">
+                <a class="nav-link" href="/categories">
+                    <i class="fas fa-fw fa-tags"></i>
+                    <span>Data Kategori</span></a>
+            </li>
+
             <!-- Nav Item - Orders -->
             <li class="nav-item {{ Request::is('orders') ? 'active' : '' }}">
                 <a class="nav-link" href="/orders">
