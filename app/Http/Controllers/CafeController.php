@@ -22,7 +22,7 @@ class CafeController extends Controller
         // Mengambil 5 transaksi terbaru beserta data menu yang dipesan (Eager Loading)
         $recentOrders = Order::with('menu')->latest()->take(5)->get();
 
-        return view('cafe.dashboard', compact('totalMenu', 'totalPesanan', 'totalPendapatan', 'recentOrders'));
+        return view('dashboard', compact('totalMenu', 'totalPesanan', 'totalPendapatan', 'recentOrders'));
     }
 
     /**
@@ -33,7 +33,7 @@ class CafeController extends Controller
         // Mengambil semua kategori beserta menu di dalamnya (Eager Loading untuk menghindari issue N+1)
         $categories = Category::with('menus')->get();
 
-        return view('cafe.menu', compact('categories'));
+        return view('menu.menu', compact('categories'));
     }
 
     /**
@@ -43,7 +43,7 @@ class CafeController extends Controller
     {
         $categories = Category::all();
 
-        return view('cafe.menu-create', compact('categories'));
+        return view('menu.menu-create', compact('categories'));
     }
 
     /**
@@ -68,7 +68,7 @@ class CafeController extends Controller
      */
     public function showMenu(Menu $menu)
     {
-        return view('cafe.menu-show', compact('menu'));
+        return view('menu.menu-show', compact('menu'));
     }
 
     /**
@@ -78,7 +78,7 @@ class CafeController extends Controller
     {
         $categories = Category::all();
 
-        return view('cafe.menu-edit', compact('menu', 'categories'));
+        return view('menu.menu-edit', compact('menu', 'categories'));
     }
 
     /**
@@ -116,6 +116,6 @@ class CafeController extends Controller
         // Mengambil semua data order, diurutkan dari yang paling baru
         $orders = Order::with('menu.category')->latest()->paginate(10); // Menggunakan pagination agar rapi
 
-        return view('cafe.orders', compact('orders'));
+        return view('order.orders', compact('orders'));
     }
 }
