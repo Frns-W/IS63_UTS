@@ -10,14 +10,14 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            ['name' => 'Coffee', 'slug' => 'coffee'],
-            ['name' => 'Non-Coffee', 'slug' => 'non-coffee'],
-            ['name' => 'Pastry', 'slug' => 'pastry'],
-            ['name' => 'Heavy Meal', 'slug' => 'heavy-meal'],
+            ['name' => 'Coffee', 'kode_makanan' => 'coffee'],
+            ['name' => 'Non-Coffee', 'kode_makanan' => 'non-coffee'],
+            ['name' => 'Pastry', 'kode_makanan' => 'pastry'],
+            ['name' => 'Heavy Meal', 'kode_makanan' => 'heavy-meal'],
         ];
 
         foreach ($categories as $category) {
-            Category::updateOrCreate(['slug' => $category['slug']], $category);
+            Category::updateOrCreate(['kode_makanan' => $category['kode_makanan']], $category);
         }
     }
 }
