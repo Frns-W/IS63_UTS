@@ -26,7 +26,7 @@ class CategoryController extends Controller
             'name' => ['required', 'string', 'max:255'],
         ]);
 
-        $data['slug'] = Str::slug($data['name']);
+        $data['kode_makanan'] = Str::slug($data['name']);
 
         Category::create($data);
 
@@ -44,7 +44,7 @@ class CategoryController extends Controller
             'name' => ['required', 'string', 'max:255'],
         ]);
 
-        $data['slug'] = Str::slug($data['name']);
+        $data['kode_makanan'] = Str::slug($data['name']);
 
         $category->update($data);
 
