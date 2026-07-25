@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -26,8 +25,6 @@ class CategoryController extends Controller
             'name' => ['required', 'string', 'max:255'],
         ]);
 
-        $data['kode_makanan'] = Str::slug($data['name']);
-
         Category::create($data);
 
         return redirect()->route('categories.index')->with('success', 'Kategori berhasil ditambahkan.');
@@ -43,8 +40,6 @@ class CategoryController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
         ]);
-
-        $data['kode_makanan'] = Str::slug($data['name']);
 
         $category->update($data);
 

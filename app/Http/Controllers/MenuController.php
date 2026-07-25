@@ -29,7 +29,12 @@ class MenuController extends Controller
             'menu_name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'in:Ready,Sold Out'],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
         ]);
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('menu-photos', 'public');
+        }
 
         Menu::create($data);
 
@@ -55,7 +60,16 @@ class MenuController extends Controller
             'menu_name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'in:Ready,Sold Out'],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
         ]);
+
+        if ($request->hasFile('photo')) {
+            // Hapus foto lama jika ada
+            if ($menu->photo) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($menu->photo);
+            }
+            $data['photo'] = $request->file('photo')->store('menu-photos', 'public');
+        }
 
         $menu->update($data);
 
