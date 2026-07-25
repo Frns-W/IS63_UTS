@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     use HasFactory;
-    protected $fillable = ['category_id', 'menu_name', 'price', 'status'];
+    protected $fillable = ['category_id', 'menu_name', 'price', 'status', 'photo'];
 
     // Relasi: Menu ini termasuk dalam sebuah kategori
     public function category()

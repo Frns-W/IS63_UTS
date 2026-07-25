@@ -24,6 +24,10 @@ class Order extends Model
     // Relasi: Orderan ini memesan menu tertentu
     public function menu()
     {
-        return $this->belongsTo(Menu::class);
+        return $this->belongsTo(Menu::class)->withDefault(function (Menu $menu, Order $order) {
+            // Handle case when menu was deleted
+            $menu->menu_name = 'Menu telah dihapus';
+            $menu->price = 0;
+        });
     }
 }
