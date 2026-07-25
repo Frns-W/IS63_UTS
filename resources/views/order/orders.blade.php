@@ -29,8 +29,8 @@
                         <td>#{{ $order->id }}</td>
                         <td>{{ optional($order->order_date)->format('d M Y') ?? optional($order->created_at)->format('d M Y') ?? '-' }}</td>
                         <td class="font-weight-bold">{{ $order->customer_name }}</td>
-                        <td><span class="badge badge-secondary">{{ $order->menu->category->name ?? 'N/A' }}</span></td>
-                        <td>{{ $order->menu->menu_name ?? 'Item Dihapus' }}</td>
+                        <td><span class="badge badge-secondary">{{ optional($order->menu->category)->name ?? '-' }}</span></td>
+                        <td>{{ $order->menu->menu_name ?? 'Menu telah dihapus' }}</td>
                         <td>{{ $order->quantity }}</td>
                         <td class="text-success font-weight-bold">Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
                         <td><span class="badge badge-info">{{ $order->payment_method }}</span></td>

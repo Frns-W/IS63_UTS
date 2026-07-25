@@ -14,6 +14,18 @@
     </div>
     <div class="card-body">
         <div class="row">
+            <div class="col-lg-3 text-center">
+                @if($menu->photo)
+                    <img src="{{ asset('storage/' . $menu->photo) }}" alt="{{ $menu->menu_name }}"
+                         class="rounded-circle img-thumbnail mb-3" width="150" height="150"
+                         style="object-fit: cover;">
+                @else
+                    <span class="rounded-circle bg-secondary d-inline-flex align-items-center justify-content-center mb-3 img-thumbnail"
+                          style="width: 150px; height: 150px; font-size: 48px; color: white;">
+                        <i class="fas fa-utensils"></i>
+                    </span>
+                @endif
+            </div>
             <div class="col-lg-6">
                 <table class="table table-borderless">
                     <tr>

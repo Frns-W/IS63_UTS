@@ -73,7 +73,7 @@
                     @foreach($recentOrders as $order)
                     <tr>
                         <td class="font-weight-bold">{{ $order->customer_name }}</td>
-                        <td>{{ $order->menu->menu_name ?? 'Menu Terhapus' }}</td>
+                        <td>{{ $order->menu->menu_name ?? 'Menu telah dihapus' }}</td>
                         <td>{{ $order->quantity }}x</td>
                         <td class="text-success font-weight-bold">Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
                     </tr>

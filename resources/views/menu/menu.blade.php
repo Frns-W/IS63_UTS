@@ -37,7 +37,21 @@
                         @foreach($category->menus as $menu)
                             <tr>
                                 <td><span class="badge badge-secondary">{{ $category->name }}</span></td>
-                                <td class="font-weight-bold">{{ $menu->menu_name }}</td>
+                                <td class="font-weight-bold">
+                                    <div class="d-flex align-items-center">
+                                        @if($menu->photo)
+                                            <img src="{{ asset('storage/' . $menu->photo) }}" alt="{{ $menu->menu_name }}"
+                                                 class="rounded-circle mr-2" width="35" height="35"
+                                                 style="object-fit: cover;">
+                                        @else
+                                            <span class="rounded-circle bg-secondary d-inline-flex align-items-center justify-content-center mr-2"
+                                                  style="width: 35px; height: 35px; font-size: 14px; color: white;">
+                                                <i class="fas fa-utensils"></i>
+                                            </span>
+                                        @endif
+                                        {{ $menu->menu_name }}
+                                    </div>
+                                </td>
                                 <td class="text-success font-weight-bold">Rp {{ number_format($menu->price, 0, ',', '.') }}</td>
                                 <td>
                                     @if($menu->status == 'Ready')

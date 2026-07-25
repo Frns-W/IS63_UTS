@@ -6,7 +6,7 @@
     $method = $method ?? 'POST';
 @endphp
 
-<form action="{{ $action }}" method="POST">
+<form action="{{ $action }}" method="POST" enctype="multipart/form-data">
     @csrf
     @if($method !== 'POST')
         @method($method)
@@ -44,6 +44,24 @@
     </div>
 
     <div class="form-group">
+        <label for="photo">Foto Menu</label>
+        <div class="custom-file">
+            <input type="file" name="photo" id="photo" class="custom-file-input" accept="image/*">
+            <label class="custom-file-label" for="photo">Pilih file gambar...</label>
+        </div>
+        @if(isset($menu) && $menu->photo)
+            <div class="mt-2">
+                <img src="{{ asset('storage/' . $menu->photo) }}" alt="{{ $menu->menu_name }}"
+                     class="rounded-circle" width="60" height="60" style="object-fit: cover;">
+                <small class="text-muted ml-2">Foto saat ini</small>
+            </div>
+        @endif
+        @error('photo')
+            <small class="text-danger">{{ $message }}</small>
+        @enderror
+    </div>
+
+    <div class="form-group">
         <label for="status">Status</label>
         <select name="status" id="status" class="form-control">
             <option value="Ready" {{ $status === 'Ready' ? 'selected' : '' }}>Ready</option>
@@ -57,3 +75,15 @@
     <button type="submit" class="btn btn-primary">{{ $submitText }}</button>
     <a href="{{ route('menu.index') }}" class="btn btn-secondary">Kembali</a>
 </form>
+
+@push('scripts')
+<script>
+    // Update label custom file input saat file dipilih
+    document.querySelectorAll('.custom-file-input').forEach(function(input) {
+        input.addEventListener('change', function(e) {
+            var fileName = e.target.files[0] ? e.target.files[0].name : 'Pilih file gambar...';
+            e.target.nextElementSibling.textContent = fileName;
+        });
+    });
+</script>
+@endpush
