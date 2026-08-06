@@ -42,6 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/menu/{menu}', [MenuController::class, 'update'])->name('menu.update');
     Route::delete('/menu/{menu}', [MenuController::class, 'destroy'])->name('menu.destroy');
 
-    // Route untuk Halaman Riwayat Transaksi (OrderController)
+    // Route untuk Form Order dan Riwayat Transaksi
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/history', [OrderController::class, 'history'])->name('orders.history');
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 });
