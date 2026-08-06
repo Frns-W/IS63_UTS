@@ -2,48 +2,77 @@
 
 @section('main-content')
 
-<h1 class="h3 mb-4 text-gray-800"> Riwayat Transaksi Penjualan</h1>
+<h1 class="h3 mb-4 text-gray-800">Order & Riwayat Transaksi Penjualan</h1>
+
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Log Semua Data Pesanan</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Form Tambah Order Baru</h6>
     </div>
     <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Nota ID</th>
-                        <th>Tanggal</th>
-                        <th>Pelanggan</th>
-                        <th>Kategori</th>
-                        <th>Menu Item</th>
-                        <th>Qty</th>
-                        <th>Total</th>
-                        <th>Metode</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($orders as $order)
-                    <tr>
-                        <td>#{{ $order->id }}</td>
-                        <td>{{ optional($order->order_date)->format('d M Y') ?? optional($order->created_at)->format('d M Y') ?? '-' }}</td>
-                        <td class="font-weight-bold">{{ $order->customer_name }}</td>
-                        <td><span class="badge badge-secondary">{{ optional($order->menu->category)->name ?? '-' }}</span></td>
-                        <td>{{ $order->menu->menu_name ?? 'Menu telah dihapus' }}</td>
-                        <td>{{ $order->quantity }}</td>
-                        <td class="text-success font-weight-bold">Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
-                        <td><span class="badge badge-info">{{ $order->payment_method }}</span></td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        
-        <!-- Pagination SB Admin 2 / Bootstrap -->
-        <div class="mt-3 d-flex justify-content-center">
-            {{ $orders->links('pagination::bootstrap-4') }}
-        </div>
+        <form action="{{ route('orders.store') }}" method="POST">
+            @csrf
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="customer_name">Nama Pelanggan</label>
+                    <input type="text" name="customer_name" id="customer_name" class="form-control" value="{{ old('customer_name') }}" placeholder="Contoh: Budi" required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="menu_id">Pilih Menu</label>
+                    <select name="menu_id" id="menu_id" class="form-control" required>
+                        <option value="">-- Pilih Menu --</option>
+                        @foreach($menus as $menu)
+                            <option value="{{ $menu->id }}" {{ old('menu_id') == $menu->id ? 'selected' : '' }}>
+                                {{ $menu->menu_name }} - Rp {{ number_format($menu->price, 0, ',', '.') }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="quantity">Jumlah</label>
+                    <input type="number" name="quantity" id="quantity" class="form-control" value="{{ old('quantity', 1) }}" min="1" required>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="payment_method">Metode Bayar</label>
+                    <select name="payment_method" id="payment_method" class="form-control" required>
+                        <option value="Cash" {{ old('payment_method') == 'Cash' ? 'selected' : '' }}>Cash</option>
+                        <option value="QRIS" {{ old('payment_method') == 'QRIS' ? 'selected' : '' }}>QRIS</option>
+                        <option value="Transfer" {{ old('payment_method') == 'Transfer' ? 'selected' : '' }}>Transfer</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row align-items-end">
+                <div class="form-group col-md-4">
+                    <label for="order_date">Tanggal Order</label>
+                    <input type="date" name="order_date" id="order_date" class="form-control" value="{{ old('order_date', now()->toDateString()) }}">
+                </div>
+                <div class="form-group col-md-8">
+                    <button type="submit" class="btn btn-primary">Simpan Order</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
