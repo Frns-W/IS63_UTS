@@ -20,6 +20,13 @@
 
     <div class="sidebar-heading">Manajemen Data</div>
 
+<!-- Nav Item - Kategori -->
+    <li class="nav-item {{ Request::is('categories*') ? 'active' : '' }}">
+        <a class="nav-link" href="/categories">
+            <i class="fas fa-fw fa-tags"></i>
+            <span>Data Kategori</span></a>
+    </li>
+
     <!-- Nav Item - Menu -->
     <li class="nav-item {{ Request::is('menu*') ? 'active' : '' }}">
         <a class="nav-link" href="/menu">
@@ -27,17 +34,17 @@
             <span>Daftar Menu</span></a>
     </li>
 
-    <!-- Nav Item - Kategori -->
-    <li class="nav-item {{ Request::is('categories*') ? 'active' : '' }}">
-        <a class="nav-link" href="/categories">
-            <i class="fas fa-fw fa-tags"></i>
-            <span>Data Kategori</span></a>
+    <!-- Nav Item - Order Form -->
+    <li class="nav-item {{ Request::is('orders') && !Request::is('orders/history') ? 'active' : '' }}">
+        <a class="nav-link" href="/orders">
+            <i class="fas fa-fw fa-plus-circle"></i>
+            <span>Form Order</span></a>
     </li>
 
-    <!-- Nav Item - Orders -->
-    <li class="nav-item {{ Request::is('orders') ? 'active' : '' }}">
-        <a class="nav-link" href="/orders">
-            <i class="fas fa-fw fa-shopping-cart"></i>
+    <!-- Nav Item - Order History -->
+    <li class="nav-item {{ Request::is('orders/history') ? 'active' : '' }}">
+        <a class="nav-link" href="/orders/history">
+            <i class="fas fa-fw fa-history"></i>
             <span>Riwayat Order</span></a>
     </li>
 
