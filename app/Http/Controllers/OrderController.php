@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('menu.category')->latest()->paginate(10);
+        $orders = Order::with('menu.category')->orderBy('id', 'asc')->paginate(10);
         $menus = Menu::where('status', 'Ready')->orderBy('menu_name')->get();
 
         return view('order.orders', compact('orders', 'menus'));
@@ -18,7 +18,7 @@ class OrderController extends Controller
 
     public function history()
     {
-        $orders = Order::with('menu.category')->latest()->paginate(10);
+        $orders = Order::with('menu.category')->orderBy('id', 'asc')->paginate(10);
 
         return view('order.history', compact('orders'));
     }
