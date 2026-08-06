@@ -1,1 +1,1 @@
-{"version":2,"defects":{"Tests\\Feature\\OrderControllerTest::test_user_can_create_an_order_from_the_orders_page":7},"times":{"Tests\\Feature\\OrderControllerTest::test_user_can_create_an_order_from_the_orders_page":0.099}}
+{"version":2,"defects":{"Tests\\Feature\\OrderControllerTest::test_user_can_create_an_order_from_the_orders_page":7},"times":{"Tests\\Feature\\OrderControllerTest::test_user_can_create_an_order_from_the_orders_page":0.102}}
